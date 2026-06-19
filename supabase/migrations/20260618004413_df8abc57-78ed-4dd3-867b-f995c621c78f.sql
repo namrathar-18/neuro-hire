@@ -1,0 +1,1 @@
+ALTER TABLE public.interview_messages ADD COLUMN IF NOT EXISTS metadata jsonb;
