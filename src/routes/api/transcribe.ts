@@ -4,8 +4,8 @@ export const Route = createFileRoute("/api/transcribe")({
   server: {
     handlers: {
       POST: async ({ request }) => {
-        const apiKey = process.env.LOVABLE_API_KEY;
-        if (!apiKey) return new Response("Missing LOVABLE_API_KEY", { status: 500 });
+        const apiKey = process.env.AI_GATEWAY_API_KEY;
+        if (!apiKey) return new Response("Missing AI_GATEWAY_API_KEY", { status: 500 });
         const inForm = await request.formData();
         const file = inForm.get("file");
         if (!(file instanceof File)) return new Response("Missing file", { status: 400 });

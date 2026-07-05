@@ -10,7 +10,7 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
-import { reportLovableError } from "../lib/lovable-error-reporting";
+import { reportError } from "../lib/error-reporting";
 
 function NotFoundComponent() {
   return (
@@ -38,7 +38,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
   useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
+    reportError(error, { boundary: "tanstack_root_error_component" });
   }, [error]);
 
   return (
@@ -83,11 +83,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:description", content: "AI-powered recruitment platform that screens resumes, interviews candidates, and ranks applicants automatically." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
       { name: "twitter:title", content: "NeuroHire AI — Autonomous Recruitment OS" },
       { name: "twitter:description", content: "AI-powered recruitment platform that screens resumes, interviews candidates, and ranks applicants automatically." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/95e7ef4a-c9db-496e-b5fd-5115f0a10b50/id-preview-a28ebaa8--36ef6825-5e6a-43db-8738-cfe5d4bc069a.lovable.app-1781745033733.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/95e7ef4a-c9db-496e-b5fd-5115f0a10b50/id-preview-a28ebaa8--36ef6825-5e6a-43db-8738-cfe5d4bc069a.lovable.app-1781745033733.png" },
     ],
     links: [
       {
