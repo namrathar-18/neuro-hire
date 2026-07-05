@@ -6,6 +6,8 @@ export const Route = createFileRoute("/api/transcribe")({
       POST: async ({ request }) => {
         const apiKey = process.env.AI_GATEWAY_API_KEY;
         if (!apiKey) return new Response("Missing AI_GATEWAY_API_KEY", { status: 500 });
+        const gatewayUrl = process.env.AI_GATEWAY_URL;
+        if (!gatewayUrl) return new Response("Missing AI_GATEWAY_URL", { status: 500 });
         const inForm = await request.formData();
         const file = inForm.get("file");
         if (!(file instanceof File)) return new Response("Missing file", { status: 400 });
@@ -22,7 +24,7 @@ export const Route = createFileRoute("/api/transcribe")({
         upstream.append("model", "openai/gpt-4o-mini-transcribe");
         upstream.append("file", file, `recording.${ext}`);
 
-        const r = await fetch("https://ai.gateway.lovable.dev/v1/audio/transcriptions", {
+        const r = await fetch(`${gatewayUrl}/audio/transcriptions`, {
           method: "POST",
           headers: { Authorization: `Bearer ${apiKey}` },
           body: upstream,
